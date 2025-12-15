@@ -140,6 +140,11 @@ class ChatService:
         else:
             self.gizmo_id = None
 
+        if "search" in self.origin_model:
+            self.search = True
+        else:
+            self.search = None
+
         if "o3-mini-high" in self.origin_model:
             self.req_model = "o3-mini-high"
         elif "o3-mini-medium" in self.origin_model:
@@ -175,7 +180,7 @@ class ChatService:
         elif "auto" in self.origin_model:
             self.req_model = "auto"
         else:
-            self.req_model = "gpt-4o"
+            self.req_model = "gpt-5-2"
 
     async def get_chat_requirements(self):
         if conversation_only:
@@ -335,12 +340,16 @@ class ChatService:
             "reset_rate_limits": False,
             "suggestions": [],
             "supported_encodings": [],
-            "system_hints": [],
+            "system_hints": [
+                "reason"
+            ],
             "timezone": "America/Los_Angeles",
             "timezone_offset_min": -480,
             "variant_purpose": "comparison_implicit",
             "websocket_request_id": f"{uuid.uuid4()}",
         }
+        if self.search:
+            self.chat_request['force_use_search'] = True
         if self.conversation_id:
             self.chat_request['conversation_id'] = self.conversation_id
         return self.chat_request
