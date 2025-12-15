@@ -140,16 +140,6 @@ class ChatService:
         else:
             self.gizmo_id = None
 
-        if "search" in self.origin_model:
-            self.search = True
-        else:
-            self.search = None
-
-        if "thinking" in self.origin_model:
-            self.thinking = True
-        else:
-            self.thinking = None
-
         if "o3-mini-high" in self.origin_model:
             self.req_model = "o3-mini-high"
         elif "o3-mini-medium" in self.origin_model:
@@ -185,7 +175,7 @@ class ChatService:
         elif "auto" in self.origin_model:
             self.req_model = "auto"
         else:
-            self.req_model = "gpt-4o"
+            self.req_model = "gpt-5-2-thinking"
 
     async def get_chat_requirements(self):
         if conversation_only:
@@ -320,7 +310,7 @@ class ChatService:
 
         logger.info(f"Model mapping: {self.origin_model} -> {self.req_model}")
         self.chat_request = {
-            "action": "next",
+            "action": "variant",
             "client_contextual_info": {
                 "is_dark_mode": False,
                 "time_since_loaded": random.randint(50, 500),
@@ -351,12 +341,6 @@ class ChatService:
             "variant_purpose": "comparison_implicit",
             "websocket_request_id": f"{uuid.uuid4()}",
         }
-        if self.search:
-            self.chat_request['force_use_search'] = True
-        if self.thinking:
-            self.chat_request['system_hints'] = [
-                "reason"
-            ]
         if self.conversation_id:
             self.chat_request['conversation_id'] = self.conversation_id
         return self.chat_request
