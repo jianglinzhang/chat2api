@@ -344,9 +344,9 @@ class ChatService:
             "timezone_offset_min": -480,
             "variant_purpose": "comparison_implicit",
             "websocket_request_id": f"{uuid.uuid4()}",
-            "thinking_effort": "high",
-            "enable_message_followups": true,
-            "supports_buffering": true,
+            "thinking_effort": "standard",
+            "enable_message_followups": True,
+            "supports_buffering": True,
             "force_parallel_switch": "auto",
         }
         if self.conversation_id:
