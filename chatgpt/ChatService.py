@@ -316,7 +316,7 @@ class ChatService:
                 "time_since_loaded": random.randint(50, 500),
                 "page_height": random.randint(500, 1000),
                 "page_width": random.randint(1000, 2000),
-                "pixel_ratio": 1.5,
+                "pixel_ratio": 1,
                 "screen_height": random.randint(800, 1200),
                 "screen_width": random.randint(1200, 2200),
             },
@@ -331,7 +331,8 @@ class ChatService:
             "model": self.req_model,
             "paragen_cot_summary_display_override": "allow",
             "paragen_stream_type_override": None,
-            "parent_message_id": self.parent_message_id if self.parent_message_id else f"{uuid.uuid4()}",
+            # "parent_message_id": self.parent_message_id if self.parent_message_id else f"{uuid.uuid4()}",
+            "parent_message_id": "client-created-root",
             "reset_rate_limits": False,
             "suggestions": [],
             "supported_encodings": [],
@@ -340,9 +341,9 @@ class ChatService:
             "timezone_offset_min": -480,
             "variant_purpose": "comparison_implicit",
             "websocket_request_id": f"{uuid.uuid4()}",
+            "thinking_effort": "high"
         }
         if self.conversation_id:
-            self.chat_request['action'] = "variant"
             self.chat_request['conversation_id'] = self.conversation_id
         return self.chat_request
 
