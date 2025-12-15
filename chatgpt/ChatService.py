@@ -310,7 +310,7 @@ class ChatService:
 
         logger.info(f"Model mapping: {self.origin_model} -> {self.req_model}")
         self.chat_request = {
-            "action": "variant",
+            "action": "next",
             "client_contextual_info": {
                 "is_dark_mode": False,
                 "time_since_loaded": random.randint(50, 500),
@@ -342,6 +342,7 @@ class ChatService:
             "websocket_request_id": f"{uuid.uuid4()}",
         }
         if self.conversation_id:
+            self.chat_request['action'] = "variant"
             self.chat_request['conversation_id'] = self.conversation_id
         return self.chat_request
 
