@@ -175,7 +175,7 @@ class ChatService:
         elif "auto" in self.origin_model:
             self.req_model = "auto"
         else:
-            self.req_model = "gpt-5-2-thinking"
+            self.req_model = "gpt-4o"
 
     async def get_chat_requirements(self):
         if conversation_only:
@@ -316,10 +316,9 @@ class ChatService:
                 "time_since_loaded": random.randint(50, 500),
                 "page_height": random.randint(500, 1000),
                 "page_width": random.randint(1000, 2000),
-                "pixel_ratio": 1,
+                "pixel_ratio": 1.5,
                 "screen_height": random.randint(800, 1200),
                 "screen_width": random.randint(1200, 2200),
-                "app_name": "chatgpt.com"
             },
             "conversation_mode": conversation_mode,
             "conversation_origin": None,
@@ -332,22 +331,15 @@ class ChatService:
             "model": self.req_model,
             "paragen_cot_summary_display_override": "allow",
             "paragen_stream_type_override": None,
-            # "parent_message_id": self.parent_message_id if self.parent_message_id else f"{uuid.uuid4()}",
-            "parent_message_id": "client-created-root",
+            "parent_message_id": self.parent_message_id if self.parent_message_id else f"{uuid.uuid4()}",
             "reset_rate_limits": False,
             "suggestions": [],
-            "supported_encodings": [
-                "v1"
-            ],
+            "supported_encodings": [],
             "system_hints": [],
             "timezone": "America/Los_Angeles",
             "timezone_offset_min": -480,
             "variant_purpose": "comparison_implicit",
             "websocket_request_id": f"{uuid.uuid4()}",
-            "thinking_effort": "standard",
-            "enable_message_followups": True,
-            "supports_buffering": True,
-            "force_parallel_switch": "auto",
         }
         if self.conversation_id:
             self.chat_request['conversation_id'] = self.conversation_id
