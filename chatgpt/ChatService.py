@@ -319,6 +319,7 @@ class ChatService:
                 "pixel_ratio": 1,
                 "screen_height": random.randint(800, 1200),
                 "screen_width": random.randint(1200, 2200),
+                "app_name": "chatgpt.com"
             },
             "conversation_mode": conversation_mode,
             "conversation_origin": None,
@@ -331,17 +332,22 @@ class ChatService:
             "model": self.req_model,
             "paragen_cot_summary_display_override": "allow",
             "paragen_stream_type_override": None,
-            "parent_message_id": self.parent_message_id if self.parent_message_id else f"{uuid.uuid4()}",
-            # "parent_message_id": "client-created-root",
+            # "parent_message_id": self.parent_message_id if self.parent_message_id else f"{uuid.uuid4()}",
+            "parent_message_id": "client-created-root",
             "reset_rate_limits": False,
             "suggestions": [],
-            "supported_encodings": [],
+            "supported_encodings": [
+                "v1"
+            ],
             "system_hints": [],
             "timezone": "America/Los_Angeles",
             "timezone_offset_min": -480,
             "variant_purpose": "comparison_implicit",
             "websocket_request_id": f"{uuid.uuid4()}",
-            "thinking_effort": "high"
+            "thinking_effort": "high",
+            "enable_message_followups": true,
+            "supports_buffering": true,
+            "force_parallel_switch": "auto",
         }
         if self.conversation_id:
             self.chat_request['conversation_id'] = self.conversation_id
